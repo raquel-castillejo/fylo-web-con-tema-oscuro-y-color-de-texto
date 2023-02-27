@@ -1,0 +1,759 @@
+/* * * * *
+⚠️ DUDAS ⚠️
+* * * * * *
+
+- no sé cómo cambiar el color de los iconos (o las ilustraciones vectoriales) usando ::after. Lo intenté en la línea 675 pero no me funciona. Al final he cambiado los iconos que he podido duplicando la imagen, cambiando el color y luego la ruta... (en la linea 593 es donde cambio la ruta de la imagen segun sea tema clao u oscuro. Las rutas las cambio usando variables que están en las lineas 57 y 106)
+
+- la web tiene como fondo una imagen que hace transición entre dos colores. ¿Hay alguna forma de incluir el degradado (lo tengo en la línea 116) y la imagen de fondo (línea 131) usando la propiedad background? Sé que se puede usar el shortcut para incluir más de una imagen pero no sé si se puede mezclar con degradados de fondo. Me daba error al intentarlo y no me cogía la imagen.
+
+- después de añadir el cambio de colores del texto, no me funciona el cursor:pointer. En principio no tiene nada que ver, pero no encuentro el fallo.
+
+⚠️ * ⚠️ * ⚠️ 
+* * * * * */
+
+/* --------------------------------------------- */
+/* --------------------------------------------- */
+:root {
+  /* fonts */
+  --body-font: "Open Sans", sans-serif;
+  --titles-font: "Raleway", sans-serif;
+
+  /* --------------------------------------------- */
+
+  /* colors */
+  /* accent colors */
+  --cyan: hsl(176, 68%, 64%);
+  --blue: hsl(198, 60%, 50%);
+  --light-red: hsl(0, 100%, 63%);
+
+  /* dark blue colors */
+  --dark-blue: hsl(218, 28%, 13%);
+  --dark-blue-intro-and-email: hsl(217, 27%, 15%);
+  --dark-blue-footer: hsl(216, 53%, 9%);
+  --dark-blue-testimonials: hsl(219, 30%, 18%);
+
+  /* light colors */
+  --very-light-blue: hsl(197, 61%, 92%);
+  --very-light-cyan: hsl(176, 70%, 96%);
+  --white-text: hsl(0, 0%, 100%);
+  --white: hsl(0, 0%, 100%);
+
+  /* --------------------------------------------- */
+
+  /* colors applied */
+  /* txt colors */
+  --txt-color: var(--dark-blue-intro-and-email);
+  --txt-button-color: var(--white);
+  --txt-early-access-color: var(--white);
+  --txt-link-color: var(--blue);
+  --txt-link-color-hover: var(--dark-blue);
+
+  /* bg colors */
+  --bg-color: var(--white);
+  --bg-color-intro-and-email: var(--blue);
+  --bg-color-footer: var(--very-light-blue);
+  --bg-color-testimonials: var(--very-light-cyan);
+  --bg-color-button: linear-gradient(to right, var(--cyan), var(--blue));
+  --bg-color-button-hover: var(--cyan);
+
+  /* --------------------------------------------- */
+
+  /* icons */
+  /* dark icons */
+  --icon-location: url(../assets/images/icons-dark-color/icon-location.svg);
+  --icon-phone: url(../assets/images/icons-dark-color/icon-phone.svg);
+  --icon-email: url(../assets/images/icons-dark-color/icon-email.svg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 14px;
+  background-color: hsl(201, 11%, 66%);
+}
+
+body {
+  position: relative;
+
+  max-width: 1440px;
+  margin-left: auto;
+  margin-right: auto;
+
+  font-family: var(--body-font);
+  color: var(--txt-color);
+
+  background-image: linear-gradient(
+    var(--bg-color-intro-and-email) 40px,
+    var(--bg-color) 700px
+  );
+}
+
+body.dark {
+  /* colors applied */
+  /* txt colors */
+  --txt-color: var(--white-text);
+  --txt-button-color: var(--white);
+  --txt-early-access-color: var(--white-text);
+  --txt-link-color: var(--cyan);
+  --txt-link-color-hover: var(--white);
+
+  /* bg colors */
+  --bg-color: var(--dark-blue);
+  --bg-color-intro-and-email: var(--dark-blue-intro-and-email);
+  --bg-color-footer: var(--dark-blue-footer);
+  --bg-color-testimonials: var(--dark-blue-testimonials);
+
+  /* --------------------------------------------- */
+
+  /* icons */
+  /* white icons */
+  --icon-location: url(../assets/images/icon-location.svg);
+  --icon-phone: url(../assets/images/icon-phone.svg);
+  --icon-email: url(../assets/images/icon-email.svg);
+
+  /* --------------------------------------------- */
+
+  background-image: linear-gradient(
+    var(--bg-color-intro-and-email) 500px,
+    var(--bg-color) 500px
+  );
+}
+
+@media screen and (min-width: 800px) {
+  body.dark {
+    background-image: linear-gradient(
+      var(--bg-color-intro-and-email) 1200px,
+      var(--bg-color) 1200px
+    );
+  }
+}
+
+/* ⚠️ imagen de transición entre los colores de fondo del body ⚠️ */
+body.dark::after {
+  content: "";
+  display: block;
+  width: 375px;
+  height: 141px;
+
+  background-image: url(../assets/images/bg-curvy-mobile.svg);
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  top: calc(500px - 141px);
+  left: 0;
+  z-index: 0;
+}
+
+@media screen and (min-width: 800px) {
+  body.dark::after {
+    width: 1440px;
+    max-width: 100vw;
+    height: 449px;
+
+    background-image: url(../assets/images/bg-curvy-desktop.svg);
+    top: calc(1200px - 449px);
+  }
+}
+
+a {
+  /* reset */
+  text-decoration: none;
+  color: inherit;
+}
+
+ul {
+  /* reset */
+  list-style: none;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+img {
+  display: block;
+}
+
+/* TEXTS */
+
+[class*="__title"] {
+  font-family: var(--titles-font);
+  text-align: center;
+  line-height: 1.5;
+}
+
+[class*="__txt"] {
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+/* HEADER */
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  padding: 2rem;
+  margin-bottom: 2rem;
+}
+@media screen and (min-width: 800px) {
+  .header {
+    flex-direction: row;
+    padding: 3rem 4rem;
+  }
+}
+
+.header__logo {
+  height: 2rem;
+  width: auto;
+}
+@media screen and (min-width: 800px) {
+  .header__logo {
+    height: 3rem;
+  }
+}
+
+.header__buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.5rem;
+}
+@media screen and (min-width: 800px) {
+  .header__buttons {
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+  }
+}
+
+.button--theme {
+  display: inline-block;
+  padding: 0.5rem 0.8rem;
+  background-color: var(--white);
+  border: none;
+  border-radius: 10px;
+
+  color: var(--bg-color-intro-and-email);
+  text-align: center;
+  text-decoration: none;
+
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: 700;
+}
+
+.button--theme:hover {
+  cursor: pointer;
+  opacity: 0.6;
+}
+
+/* text color buttons */
+
+.text-color-select-container,
+.text-color-select {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.text-color-select-container {
+  border: 1px solid var(--white);
+  padding: 0.4rem 1rem;
+  border-radius: 10px;
+}
+
+.button--text-color {
+  color: var(--white);
+}
+
+.text-color-option {
+  width: 1rem;
+  height: 1rem;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.text-color-option--black {
+  background-color: black;
+}
+
+.text-color-option--darkgrey {
+  background-color: darkslategrey;
+}
+
+.text-color-option--grey {
+  background-color: rgb(160, 160, 160);
+}
+
+.text-color-option--white {
+  background-color: white;
+}
+
+/* INTRO */
+
+.intro {
+  padding: 1.5rem;
+  margin-bottom: 100px;
+
+  position: relative;
+  z-index: 1;
+}
+
+.intro__img,
+.stay-productive__img {
+  width: 100%;
+  max-width: 700px;
+
+  margin: 0 auto 3rem;
+}
+
+.intro__txt {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+@media screen and (min-width: 800px) {
+  .intro__title,
+  .intro__txt {
+    max-width: 40rem;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .intro__title {
+    font-size: 2.3rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.intro__button {
+  display: block;
+  width: 15rem;
+
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+
+  background: var(--bg-color-button);
+  border-radius: 2rem;
+
+  text-align: center;
+  color: var(--txt-button-color);
+}
+
+@media screen and (min-width: 800px) {
+  .intro__button:hover {
+    background: var(--bg-color-button-hover);
+  }
+}
+
+/* FYLO FEATURES */
+
+.fylo-features {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  padding: 1.5rem;
+  margin-bottom: 100px;
+}
+@media screen and (min-width: 800px) {
+  .fylo-features {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    flex-wrap: wrap;
+    gap: 6rem;
+
+    padding: 50px 200px;
+  }
+
+  .fylo-features__single {
+    max-width: 27rem;
+  }
+}
+
+.fylo-features__img {
+  height: 70px;
+  width: auto;
+
+  margin: 2rem auto;
+}
+
+.fylo-features__txt {
+  text-align: center;
+}
+
+/* STAY PRODUCTIVE */
+
+.stay-productive {
+  padding: 1.5rem;
+  margin-bottom: 200px;
+}
+
+@media screen and (min-width: 800px) {
+  .stay-productive {
+    display: flex;
+    gap: 30px;
+
+    padding-left: 100px;
+    padding-right: 100px;
+  }
+}
+
+.stay-productive__img {
+  max-width: 650px;
+}
+
+.stay-productive__title {
+  text-align: left;
+}
+
+@media screen and (min-width: 800px) {
+  .stay-productive__title {
+    font-size: 3rem;
+    line-height: 1.2;
+
+    max-width: 30rem;
+    margin-bottom: 2rem;
+  }
+}
+
+.stay-productive__link {
+  color: var(--txt-link-color);
+
+  padding-bottom: 0.4rem;
+  padding-right: 3px;
+  border-bottom: 1px solid var(--txt-link-color);
+}
+
+@media screen and (min-width: 800px) {
+  .stay-productive__link:hover {
+    color: var(--txt-link-color-hover);
+    border-bottom: 1px solid var(--txt-link-color-hover);
+  }
+}
+
+.stay-productive__link--arrow-img {
+  display: inline-block;
+}
+.stay-productive__link--arrow-span {
+  position: relative;
+  top: 2px;
+  left: 3px;
+}
+
+/* TESTIMONIALS */
+
+.testimonials {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  padding: 0 3rem;
+  position: relative;
+  z-index: 1;
+}
+
+@media screen and (min-width: 800px) {
+  .testimonials {
+    flex-direction: row;
+    gap: 2rem;
+
+    padding: 0 120px;
+  }
+}
+
+.testimonials::before {
+  content: "";
+  width: 30px;
+  height: 30px;
+
+  position: absolute;
+  z-index: 0;
+  top: -20px;
+  left: calc(3rem + 5px);
+
+  background: url(../assets/images/bg-quotes.png) no-repeat top left;
+  background-size: contain;
+}
+
+@media screen and (min-width: 800px) {
+  .testimonials::before {
+    width: 60px;
+    height: 60px;
+
+    top: -35px;
+    left: 110px;
+  }
+}
+
+.testimonials__single {
+  background-color: var(--bg-color-testimonials);
+  border-radius: 5px;
+
+  padding: 1.5rem;
+  position: relative;
+  z-index: 2;
+}
+
+@media screen and (min-width: 800px) {
+  .testimonials__single {
+    padding: 3rem 2rem;
+  }
+}
+
+.testimonials__txt {
+  font-size: 0.9rem;
+  line-height: 2;
+
+  margin-top: 0;
+  margin-bottom: 2rem;
+}
+@media screen and (min-width: 800px) {
+  .testimonials__txt {
+    font-size: 1rem;
+  }
+}
+
+.testimonials__footer {
+  position: relative;
+}
+
+.testimonials__img {
+  width: 30px;
+  border-radius: 50%;
+}
+
+.testimonials_name {
+  font-weight: 700;
+
+  position: absolute;
+  bottom: 0.2rem;
+  left: 45px;
+}
+
+@media screen and (min-width: 800px) {
+  .testimonials_name {
+    font-size: 0.9rem;
+  }
+}
+
+.testimonials__job {
+  font-size: 0.7rem;
+  margin: 0;
+
+  position: absolute;
+  bottom: 0;
+  left: 45px;
+}
+
+/* EARLY ACCESS */
+
+.early-access {
+  margin: 1.5rem;
+  padding: 2rem;
+
+  border-radius: 7px;
+  background-color: var(--bg-color-intro-and-email);
+  color: var(--txt-early-access-color);
+
+  position: relative;
+  top: 130px;
+}
+
+@media screen and (min-width: 800px) {
+  .early-access {
+    max-width: 850px;
+
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .early-access__title {
+    font-size: 2.3rem;
+  }
+}
+
+.early-access__txt {
+  text-align: center;
+}
+
+/* FOOTER */
+
+.footer {
+  padding: 200px 2rem 4rem;
+
+  background-color: var(--bg-color-footer);
+
+  font-size: 1.2rem;
+  line-height: 1.5;
+}
+
+@media screen and (min-width: 800px) {
+  .footer {
+    padding: 200px 100px 4rem;
+  }
+
+  .footer-flex-container {
+    display: flex;
+    flex-wrap: wrap;
+
+    align-items: self-start;
+    justify-content: space-between;
+  }
+}
+
+/* ⚠️ cambiar el color del logo? ⚠️ */
+.footer__logo {
+  height: 4.5rem;
+  margin-bottom: 3rem;
+}
+
+@media screen and (min-width: 800px) {
+  .footer__logo {
+    height: 3.5rem;
+  }
+}
+
+.contact-info {
+  margin-bottom: 90px;
+}
+
+@media screen and (min-width: 800px) {
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+
+    height: 9rem;
+    width: 60%;
+    margin-bottom: 0;
+  }
+}
+
+.contact-info__location,
+.contact-info__tlf,
+.contact-info__email {
+  padding-left: 3rem;
+  position: relative;
+}
+
+@media screen and (min-width: 800px) {
+  .contact-info__location,
+  .contact-info__tlf,
+  .contact-info__email {
+    max-width: 30rem;
+    margin-top: 0;
+    margin-right: 2rem;
+  }
+}
+
+/* ⚠️ cambiar el color de los iconos? ⚠️ */
+.contact-info__location::before,
+.contact-info__tlf::before,
+.contact-info__email::before {
+  content: "";
+
+  position: absolute;
+  top: 0.3rem;
+  left: 0.5rem;
+
+  width: 1.5rem;
+  height: 1.5rem;
+
+  background-image: var(--icon-location);
+
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+.contact-info__tlf::before {
+  background-image: var(--icon-phone);
+}
+
+.contact-info__email::before {
+  background-image: var(--icon-email);
+}
+
+.footer-nav {
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+
+  font-size: 1.3rem;
+
+  margin-bottom: 70px;
+}
+
+@media screen and (min-width: 800px) {
+  .footer-nav {
+    flex-direction: row;
+    gap: 4rem;
+  }
+}
+
+.footer-nav__list-item {
+  margin-bottom: 1.5rem;
+  width: 8rem; /* para que no cambie el ancho de la columna al hacer :hover */
+}
+
+@media screen and (min-width: 800px) {
+  .footer-nav__list-item:hover {
+    font-weight: 700;
+  }
+}
+
+.rrss {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.rrss__link {
+  display: block;
+  width: 3rem;
+  height: 3rem;
+  padding: 10px;
+
+  border-radius: 50%;
+  border: 1px solid var(--white);
+  position: relative;
+
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.rrss__icon {
+  display: block;
+  width: 100%;
+}
+
+/* ⚠️ cambiar el color de los iconos? ⚠️ */
+/* 
+.rrss__link::after {
+  content: "";
+
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  width: 4rem;
+  height: 4rem;
+
+  background-color: red;
+  mix-blend-mode: color;
+} */
+
+/* para centrar ópticamente el icono */
+.rrss__icon--tw {
+  position: relative;
+  top: 2px;
+  left: 1px;
+}
