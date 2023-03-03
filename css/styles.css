@@ -1,22 +1,7 @@
-/* * * * *
-⚠️ DUDAS ⚠️
-* * * * * *
-
-- no sé cómo cambiar el color de los iconos (o las ilustraciones vectoriales) usando ::after. Lo intenté en la línea 675 pero no me funciona. Al final he cambiado los iconos que he podido duplicando la imagen, cambiando el color y luego la ruta... (en la linea 593 es donde cambio la ruta de la imagen segun sea tema clao u oscuro. Las rutas las cambio usando variables que están en las lineas 57 y 106)
-
-- la web tiene como fondo una imagen que hace transición entre dos colores. ¿Hay alguna forma de incluir el degradado (lo tengo en la línea 116) y la imagen de fondo (línea 131) usando la propiedad background? Sé que se puede usar el shortcut para incluir más de una imagen pero no sé si se puede mezclar con degradados de fondo. Me daba error al intentarlo y no me cogía la imagen.
-
-- después de añadir el cambio de colores del texto, no me funciona el cursor:pointer. En principio no tiene nada que ver, pero no encuentro el fallo.
-
-⚠️ * ⚠️ * ⚠️ 
-* * * * * */
-
-/* --------------------------------------------- */
-/* --------------------------------------------- */
 :root {
   /* fonts */
-  --body-font: "Open Sans", sans-serif;
-  --titles-font: "Raleway", sans-serif;
+  --body-font: 'Open Sans', sans-serif;
+  --titles-font: 'Raleway', sans-serif;
 
   /* --------------------------------------------- */
 
@@ -132,7 +117,7 @@ body.dark {
 
 /* ⚠️ imagen de transición entre los colores de fondo del body ⚠️ */
 body.dark::after {
-  content: "";
+  content: '';
   display: block;
   width: 375px;
   height: 141px;
@@ -178,13 +163,13 @@ img {
 
 /* TEXTS */
 
-[class*="__title"] {
+[class*='__title'] {
   font-family: var(--titles-font);
   text-align: center;
   line-height: 1.5;
 }
 
-[class*="__txt"] {
+[class*='__txt'] {
   font-size: 1.2rem;
   line-height: 1.5;
 }
@@ -469,7 +454,7 @@ img {
 }
 
 .testimonials::before {
-  content: "";
+  content: '';
   width: 30px;
   height: 30px;
 
@@ -608,7 +593,6 @@ img {
   }
 }
 
-/* ⚠️ cambiar el color del logo? ⚠️ */
 .footer__logo {
   height: 4.5rem;
   margin-bottom: 3rem;
@@ -653,11 +637,10 @@ img {
   }
 }
 
-/* ⚠️ cambiar el color de los iconos? ⚠️ */
 .contact-info__location::before,
 .contact-info__tlf::before,
 .contact-info__email::before {
-  content: "";
+  content: '';
 
   position: absolute;
   top: 0.3rem;
@@ -734,22 +717,6 @@ img {
   display: block;
   width: 100%;
 }
-
-/* ⚠️ cambiar el color de los iconos? ⚠️ */
-/* 
-.rrss__link::after {
-  content: "";
-
-  position: absolute;
-  top: 0;
-  left: 0;
-
-  width: 4rem;
-  height: 4rem;
-
-  background-color: red;
-  mix-blend-mode: color;
-} */
 
 /* para centrar ópticamente el icono */
 .rrss__icon--tw {
