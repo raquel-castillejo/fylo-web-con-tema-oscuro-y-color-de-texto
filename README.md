@@ -4,7 +4,7 @@
 
 ## Ejemplo en vivo
 
-- [URL de github pages de este proyecto](https://raquel-castillejo.github.io/015-tema-oscuro-textos/)
+- [raquel-castillejo.github.io/fylo-web-con-tema-oscuro-y-color-de-texto/](https://raquel-castillejo.github.io/fylo-web-con-tema-oscuro-y-color-de-texto/)
 
 ## Descripción 📑
 
@@ -31,8 +31,6 @@ Si quieres echar un vistazo al proyecto, te recomiendo:
 ## Autor ✒️
 
 **Raquel Castillejo Méndez**
-
-- [raquelcastillejo@pm.me](raquelcastillejo@pm.me)
 - [LinkedIn](https://www.linkedin.com/in/raquel-castillejo-mendez)
 
 ## Instalación
